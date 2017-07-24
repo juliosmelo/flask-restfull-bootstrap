@@ -1,0 +1,33 @@
+postgres:
+  image: postgres:9.5.7-alpine
+  ports:
+     - 5432:5432/tcp
+
+local:
+  restart: always
+  build: .
+  command: ["./wait-for-it.sh", "postgres:5432", "--", "python", "app.py"]
+  volumes:
+    - .:/usr/src/app
+  ports:
+    - 5000:5000
+  environment:
+    - APP_CONFIG=src.config.DevelopmentConfig
+    - SECRET_KEY=MjMybHNAI0AmKiZmYmp1bGlvY2FyYWxobwo
+    - POSTGRES_DB=myawesomedb
+  links:
+    - postgres:db
+
+test:
+  build: .
+  command: ["./wait-for-it.sh", "postgres:5432", "--", "python", "test.py"]
+  volumes:
+    - .:/usr/src/app
+  ports:
+    - 5000:5000
+  environment:
+    - APP_CONFIG=src.config.TestingConfig
+    - SECRET_KEY=MjMybHNAI0AmKiZmYmp1bGlv
+    - POSTGRES_DB=db_test
+  links:
+    - postgres:db
