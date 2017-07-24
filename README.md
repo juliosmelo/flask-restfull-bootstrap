@@ -1,4 +1,4 @@
-# Flask boostrap for RESTFul API with sqlAlchemy
+# Flask bootstrap for RESTFul
 
 1. Flask
 2. Flask-RESTFull
