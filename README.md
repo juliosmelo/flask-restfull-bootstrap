@@ -1,4 +1,4 @@
-# Flask bootstrap for RESTFul
+# Flask bootstrap for RESTFull
 
 1. Flask
 2. Flask-RESTFull
